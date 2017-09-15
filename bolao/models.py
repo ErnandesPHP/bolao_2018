@@ -13,7 +13,7 @@ class Usuario(db.Model, UserMixin):
     telefone = db.Column(db.String(20))
     senha = db.Column(db.String(100))
     hora_registro = db.Column(db.DateTime(), default=datetime.now)
-    games = db.relationship("BetGame", backref="user")
+    games = db.relationship("Apostas", backref="user")
 
     def __repr__(self):
         return self.nome

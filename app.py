@@ -3,7 +3,7 @@ import os
 from flask import Flask, jsonify, render_template, request, url_for, redirect
 from proveedor import GoogleLogin, LinkedInLogin, FacebookLogin
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path = "", static_folder = "static")
 app.config.update(
     SECRET_KEY="x34sdfm34",
 )
@@ -98,15 +98,15 @@ def excluir(id):
   return render_template("lista.html", pessoas=pessoas)
 
 #@app.route("/")
-#def index():
-#  return """
-#<html>
-#<a href="{}">Login com Google</a> <br>
-#<a href="{}">Login com Linkedin</a> <br>
-#<a href="{}">Login com Facebook</a> <br>
-#""".format(google_login.authorization_url(),
-#           linkedin_login.authorization_url(),
-#           facebook_login.authorization_url())
+def index():
+  return """
+<html>
+<a href="{}">Login com Google</a> <br>
+<a href="{}">Login com Linkedin</a> <br>
+<a href="{}">Login com Facebook</a> <br>
+""".format(google_login.authorization_url(),
+           linkedin_login.authorization_url(),
+           facebook_login.authorization_url())
 
 
 @google_login.login_success
