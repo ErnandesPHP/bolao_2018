@@ -1,4 +1,4 @@
-Autenticacao obtida em https://github.com/juliocesar-io/login-OAuth2-flask
+Autenticacao baseada em https://github.com/juliocesar-io/login-OAuth2-flask
 
 Instalar as dependências:
 ``` 
