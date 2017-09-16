@@ -1,6 +1,7 @@
 from flask.ext.sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+#from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 
 def drop_all():
     db.drop_all()
