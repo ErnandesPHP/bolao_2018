@@ -44,9 +44,26 @@
                             <h1><strong>Usuários</h1>
                         </div>
                     </div>
-                    {% for user in users %}
-                    {{ user }}
-                    {% endfor %}
+
+<div> 
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Aposta</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}    
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>teste@bolao.com</td>
+      </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+
         <!-- Footer -->
         <footer>
         	<div class="container">

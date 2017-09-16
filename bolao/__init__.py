@@ -5,7 +5,7 @@ from flask_login import LoginManager
 #from . import views
 
 app = Flask(__name__, static_url_path = "", static_folder = "static")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/bolao2.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/bolao.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config.update(
     SECRET_KEY="x34sdfm34",
@@ -23,12 +23,12 @@ for config in (
   app.config[config] = environ[config]
 
 db = SQLAlchemy(app)
+
 @app.before_request
-def before_request():
-    db.drop_all()
+def create_all():
     db.create_all()
 
-login_manager = LoginManager()
+login_manager = LoginManager(app)
 login_manager.init_app(app)
 login_manager.login_message = "You must be logged in to access this page."
 login_manager.login_view = "auth.login"

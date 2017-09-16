@@ -20,7 +20,7 @@ login_manager.init_app(app)
 @bolao.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    if form.validators=[]e_on_submit():
         login_user(user)
 
         flash('Logged in successfully.')
@@ -46,27 +46,37 @@ def logout2():
     return redirect(url_for('index'))
 """
 
-@app.route("/lista")
-def lista():
+@bolao.route("/listar")
+def listar():
     users = User.query.all()
-    print(users)
     return render_template("usuarios.html", users=users)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@bolao.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
+        username = (request.form.get("username"))        
         nome = (request.form.get("nome"))
         email = (request.form.get("email"))
         senha = (request.form.get("senha"))
-        username = (request.form.get("username"))
         if nome and email and senha:
-            u = User(username=username, nome=nome, email=email, senha=senha)
-            u.save()
-        flash('You have successfully registered! You may now login.')
-        return redirect(url_for('login'))
+            teste1 = User.query.filter_by(username=username).first()
+            teste2 = User.query.filter_by(email=email).first()
+            if teste1 or teste2:
+                flash('Usuário ou E-mail já existe! Favor logar!')
+            else:
+                u = User(username=username, nome=nome, email=email)
+                u.password(senha)
+                u.save()
+                flash('Usuário cadastrado com sucesso! Favor logar!')
+            return redirect(url_for('.login'))
     # load registration template
-    return render_template('index.html', form=form, title='Register')
+    return render_template('index.html', title='Register', \
+                           botoes = [
+                                facebook_login.authorization_url(),        
+                                google_login.authorization_url(),
+                                linkedin_login.authorization_url()
+                                     ])
 
 @bolao.route('/', methods=['GET', 'POST'])
 def index():
@@ -77,7 +87,22 @@ def index():
                                 linkedin_login.authorization_url()
                                      ])
 
-@app.route('/logout')
+
+@bolao.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get("form-username")
+        password = request.form.get("form-password")
+        usuario = User.query.filter_by(username=username).first()
+        print(username)
+        print(usuario)
+        a = usuario.verify_password(password)
+        print(a)
+        if usuario.verify_password(password):
+            return redirect(url_for('.listar'))
+    return "Login"
+
+@bolao.route('/logout')
 @login_required
 def logout():
     logout_user()
